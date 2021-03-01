@@ -1,0 +1,2 @@
+C:\Users\davep\Desktop\DavEngine\Debug\DavEngine.exe
+C:\Users\davep\Desktop\DavEngine\Debug\DavEngine.pdb
