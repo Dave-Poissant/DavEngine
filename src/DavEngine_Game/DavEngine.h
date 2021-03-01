@@ -1,7 +1,7 @@
 #ifndef _DAVENGINE_H_
 #define _DAVENGINE_H_
 
-#include "../DavEngine_common/IGame.h"
+#include "DavEngine_common/IGame.h"
 
 class DavEngine : public AbstractGame
 {
