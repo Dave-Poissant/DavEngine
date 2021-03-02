@@ -1,12 +1,10 @@
-#include "DavEngine_Game/DavEngine.h"
+#include <windows.h>
+
 #define SDL_MAIN_HANDLED
-#include "DavEngine_Game/structs.h"
-#include "DavEngine_Game/initSDL.h"
-#include "DavEngine_Game/draw.h"
+#include "DavEngine_Game/DavEngine.h"
 #include "DavEngine_Game/input.h"
 #include "SDL_image.h"
 
-App app;
 
 static void cleanup()
 {
@@ -16,30 +14,24 @@ static void cleanup()
 int main()
 {
     IGame::Instance()->Initialize();
-	memset(&app, 0, sizeof(App));
-
-	draw* drawObj = new draw();
 	input* inputObj = new input();
-	initSDL* initSDLObj = new initSDL();
-
-	initSDLObj->initSDLObject(&app);
 
 	atexit(cleanup);
 
 	while (1)
 	{
-		drawObj->prepareScene(&app);
+		IGame::Instance()->GetWindowHandler()->PrepareWindow(((DavEngine*)IGame::Instance())->GetApp());
 
 		inputObj->doInput();
 
-		drawObj->presentScene(&app);
+		IGame::Instance()->GetWindowHandler()->blit(((DavEngine*)IGame::Instance())->GetTextureEntity(), ((DavEngine*)IGame::Instance())->GetApp());
 
-		SDL_Delay(16);
+		IGame::Instance()->GetWindowHandler()->PresentWindow(((DavEngine*)IGame::Instance())->GetApp());
+
+		SDL_Delay(REFRESH_RATE);
 	}
 
-	delete drawObj;
 	delete inputObj;
-	delete initSDLObj;
 
 	return 0;
 }

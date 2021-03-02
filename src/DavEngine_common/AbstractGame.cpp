@@ -9,3 +9,8 @@ void AbstractGame::Initialize()
 {
 	std::cout << "- AbstractGame::Initialize() -" << std::endl;
 }
+
+WindowHandler* AbstractGame::GetWindowHandler()
+{
+	return nullptr;
+}
