@@ -2,7 +2,7 @@
 #define _WINDOWHANDLER_H_
 
 #include <string>
-#include <map>
+#include <deque>
 
 struct App;
 struct Stage;
@@ -12,7 +12,7 @@ struct SDL_Texture;
 class WindowHandler
 {
 public:
-	WindowHandler(int a_width, int a_height, App* a_app, Stage* a_stage);
+	WindowHandler(int a_width, int a_height, App* a_app);
 
 	~WindowHandler();
 
@@ -23,7 +23,8 @@ public:
 	void Draw();
 	void FireBullet();
 
-	std::map<std::string, Entity*>* GetEntityMap();
+	std::deque<Entity*>* GetBulletDeque();
+	Entity* GetPlayerEntity();
 
 	void Blit(Entity* a_entity);
 	SDL_Texture* LoadTexture(char* a_filename);
@@ -35,15 +36,14 @@ private:
 	void DrawPlayer();
 	void DrawBullets();
 
-	Stage* m_stage;
 	App* m_app;
 	SDL_Texture* m_bulletTexture;
+	Entity* m_playerEntity;
 
 	int m_width;
 	int m_height;
 
-	std::map<std::string, Entity*> textureEntitysMap;
-
+	std::deque<Entity*> m_bulletEntitysDeque;
 };
 
 #endif // !_WINDOWHANDLER_H_

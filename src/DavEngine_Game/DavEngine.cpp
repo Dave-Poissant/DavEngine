@@ -6,7 +6,6 @@ DavEngine::DavEngine() : AbstractGame()
 {
     std::cout << "- DavEngine::DavEngine() -" << std::endl;
 	m_app = nullptr;
-	m_stage = nullptr;
 	m_windowHandler = nullptr;
 	m_logicHandler = nullptr;
 }
@@ -19,14 +18,10 @@ void DavEngine::Initialize()
     m_app = new App();
 	memset(m_app, 0, sizeof(App));
 
-	m_stage = new Stage();
-	memset(m_stage, 0, sizeof(Stage));
-
-    m_windowHandler = new WindowHandler(SCREEN_WIDTH, SCREEN_HEIGHT, m_app, m_stage);
-	m_logicHandler = new LogicHandler(m_stage, m_app);
+    m_windowHandler = new WindowHandler(SCREEN_WIDTH, SCREEN_HEIGHT, m_app);
+	m_logicHandler = new LogicHandler(m_app);
 
 	InitSDLObject();
-	InitStage();
 	m_windowHandler->InitializeTexture();
 }
 
@@ -61,12 +56,6 @@ void DavEngine::InitSDLObject()
 		printf("Failed to create renderer: %s\n", SDL_GetError());
 		exit(1); // TODO: Create exception class to throw handled exceptions
 	}
-}
-
-void DavEngine::InitStage()
-{
-	m_stage->fighterTail = &m_stage->fighterHead;
-	m_stage->bulletTail = &m_stage->bulletHead;
 }
 
 App* DavEngine::GetApp()

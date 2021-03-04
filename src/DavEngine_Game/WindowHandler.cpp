@@ -3,33 +3,29 @@
 #include "WindowHandler.h"
 #include "DavEngine_defs.h"
 
-WindowHandler::WindowHandler(int a_width, int a_height, App* a_app, Stage* a_stage) : m_width(a_width), m_height(a_height), m_app(a_app), m_stage(a_stage)
+WindowHandler::WindowHandler(int a_width, int a_height, App* a_app) : m_width(a_width), m_height(a_height), m_app(a_app)
 {
 	m_bulletTexture = nullptr;
+	m_playerEntity = nullptr;
 }
 
 WindowHandler::~WindowHandler()
 {
-	if (m_stage != nullptr)
-	{
-		delete m_stage;
-		m_stage = 0;
-	}
-
 	if (m_bulletTexture != nullptr)
 	{
 		m_bulletTexture = nullptr;
 	}
 
-	std::map<std::string, Entity*>::iterator it;
-	for (it = textureEntitysMap.begin(); it != textureEntitysMap.end(); it++)
+	if (m_playerEntity != nullptr)
 	{
-		if (it->second != nullptr)
-		{
-			delete it->second;
-			it->second = 0;
-		}
-		textureEntitysMap.erase(it);
+		m_playerEntity = nullptr;
+	}
+
+	while (!m_bulletEntitysDeque.empty())
+	{
+		Entity* tempEntity = m_bulletEntitysDeque.back();
+		tempEntity = nullptr;
+		m_bulletEntitysDeque.pop_back();
 	}
 }
 
@@ -44,17 +40,14 @@ void WindowHandler::InitPlayer()
 	Entity* player = new Entity();
 	memset(player, 0, sizeof(Entity));
 
-	m_stage->fighterTail->next = player;
-	m_stage->fighterTail = player;
 	player->x = 100;
 	player->y = 100;
-	player->entityId = (std::string)"PLAYER";
 
 	std::string playerFilename = "C:\\Users\\davep\\Desktop\\DavEngine\\gfx\\player.png";
 	player->texture = LoadTexture((char*)playerFilename.c_str());
 	SDL_QueryTexture(player->texture, NULL, NULL, &player->w, &player->h);
-	std::cout << player->entityId.c_str() << std::endl;
-	textureEntitysMap.insert(std::pair<std::string, Entity*>(player->entityId, player)); // Not sure if this is usefull
+
+	m_playerEntity = player;
 }
 
 void WindowHandler::InitBullet()
@@ -104,22 +97,16 @@ void WindowHandler::Draw()
 
 void WindowHandler::DrawPlayer()
 {
-	std::map<std::string, Entity*>::iterator it;
-	it = textureEntitysMap.find("PLAYER");
-	if (it != textureEntitysMap.end())
-	{
-		Blit(it->second);
-	}
-	
+	Blit(m_playerEntity);
 }
 
 void WindowHandler::DrawBullets()
 {
-	Entity* b;
-
-	for (b = m_stage->bulletHead.next; b != NULL; b = b->next)
+	size_t i = 1;
+	while (i <= m_bulletEntitysDeque.size() && !m_bulletEntitysDeque.empty())
 	{
-		Blit(b);
+		Blit(m_bulletEntitysDeque.at(m_bulletEntitysDeque.size() - i));
+		i++;
 	}
 }
 
@@ -128,38 +115,27 @@ void WindowHandler::FireBullet()
 	Entity* bullet = new Entity();
 	memset(bullet, 0, sizeof(Entity));
 
-	m_stage->bulletTail->next = bullet;
-	m_stage->bulletTail = bullet;
-
-	std::map<std::string, Entity*>::iterator it;
-	it = textureEntitysMap.find("PLAYER");
-
-	if (it == textureEntitysMap.end())
-	{
-		std::cout << "Couldn't find PLAYER entity for FireBullet()" << std::endl;
-		return;
-	}
-	
-	auto bulletNumber = std::to_string(textureEntitysMap.size() - 1); // size() should be at least 1 with "PLAYER" in it
-
-	bullet->entityId = (std::string)("BULLET" + bulletNumber);
-	std::cout << bullet->entityId << std::endl;
-	bullet->x = it->second->x;
-	bullet->y = it->second->y;
+	bullet->x = m_playerEntity->x;
+	bullet->y = m_playerEntity->y;
 	bullet->dx = PLAYER_BULLET_SPEED;
 	bullet->health = 1;
 	bullet->texture = m_bulletTexture;
 
-	textureEntitysMap.insert(std::pair<std::string, Entity*>(bullet->entityId, bullet)); // Not sure if this is usefull
+	m_bulletEntitysDeque.push_front(bullet);
 
 	SDL_QueryTexture(bullet->texture, NULL, NULL, &bullet->w, &bullet->h);
 
-	bullet->y += (it->second->h / 2) - (bullet->h / 2);
+	bullet->y += (m_playerEntity->h / 2) - (bullet->h / 2);
 
-	it->second->reload = 8;
+	m_playerEntity->reload = 8;
 }
 
-std::map<std::string, Entity*>* WindowHandler::GetEntityMap()
+std::deque<Entity*>* WindowHandler::GetBulletDeque()
 {
-	return &textureEntitysMap;
+	return &m_bulletEntitysDeque;
+}
+
+Entity* WindowHandler::GetPlayerEntity()
+{
+	return m_playerEntity;
 }

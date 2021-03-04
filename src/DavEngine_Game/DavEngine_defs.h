@@ -20,7 +20,6 @@ struct App {
 };
 
 struct Entity {
-	std::string entityId;
 	float x;
 	float y;
 	int w;
@@ -31,13 +30,6 @@ struct Entity {
 	int reload;
 	SDL_Texture* texture;
 	Entity* next;
-};
-
-struct Stage {
-	Entity fighterHead;
-	Entity* fighterTail;
-	Entity bulletHead;
-	Entity* bulletTail;
 };
 
 #endif // !_DAVENGINE_DEFS_H_

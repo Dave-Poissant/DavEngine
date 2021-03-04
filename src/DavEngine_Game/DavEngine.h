@@ -13,7 +13,6 @@ public:
 
 	void Initialize() override;
 	void InitSDLObject();
-	void InitStage();
 
 	App* GetApp();
 	WindowHandler* GetWindowHandler();
@@ -21,7 +20,6 @@ public:
 
 private:
 	App* m_app;
-	Stage* m_stage;
 	WindowHandler* m_windowHandler;
 	LogicHandler* m_logicHandler;
 

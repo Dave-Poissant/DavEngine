@@ -7,7 +7,7 @@ struct App;
 class LogicHandler
 {
 public:
-	LogicHandler(Stage* a_stage, App* a_app);
+	LogicHandler(App* a_app);
 	~LogicHandler();
 
 	void Logic();
@@ -15,7 +15,6 @@ public:
 	void DoBullets();
 
 private:
-	Stage* m_stage;
 	App* m_app;
 };
 

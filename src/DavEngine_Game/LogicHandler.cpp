@@ -1,10 +1,10 @@
-#include <map>
+#include <deque>
 #include <string>
 
 #include "LogicHandler.h"
 #include "DavEngine.h"
 
-LogicHandler::LogicHandler(Stage* a_stage, App* a_app) : m_stage(a_stage), m_app(a_app)
+LogicHandler::LogicHandler(App* a_app) : m_app(a_app)
 {
 
 }
@@ -23,86 +23,60 @@ void LogicHandler::Logic()
 
 void LogicHandler::DoPlayer()
 {
-	std::map<std::string, Entity*>::iterator it;
-	it = IGame::Instance()->GetWindowHandler()->GetEntityMap()->find("PLAYER");
+	Entity* player = IGame::Instance()->GetWindowHandler()->GetPlayerEntity();
 
-	if (it == IGame::Instance()->GetWindowHandler()->GetEntityMap()->end())
+	player->dx = player->dy = 0;
+
+	if (player->reload > 0)
 	{
-		std::cout << "Couldn't find PLAYER entity" << std::endl;
-		return;
-	}
-
-	it->second->dx = it->second->dy = 0;
-
-	if (it->second->reload > 0)
-	{
-		it->second->reload--;
+		player->reload--;
 	}
 
 	if (m_app->keyboard[SDL_SCANCODE_UP])
 	{
-		it->second->dy = -PLAYER_SPEED;
+		player->dy = -PLAYER_SPEED;
 	}
 
 	if (m_app->keyboard[SDL_SCANCODE_DOWN])
 	{
-		it->second->dy = PLAYER_SPEED;
+		player->dy = PLAYER_SPEED;
 	}
 
 	if (m_app->keyboard[SDL_SCANCODE_LEFT])
 	{
-		it->second->dx = -PLAYER_SPEED;
+		player->dx = -PLAYER_SPEED;
 	}
 
 	if (m_app->keyboard[SDL_SCANCODE_RIGHT])
 	{
-		it->second->dx = PLAYER_SPEED;
+		player->dx = PLAYER_SPEED;
 	}
 
-	if (m_app->keyboard[SDL_SCANCODE_LCTRL] && it->second->reload == 0)
+	if (m_app->keyboard[SDL_SCANCODE_LCTRL] && player->reload == 0)
 	{
 		IGame::Instance()->GetWindowHandler()->FireBullet();
 	}
 
-	it->second->x += it->second->dx;
-	it->second->y += it->second->dy;
+	player->x += player->dx;
+	player->y += player->dy;
 }
 
 void LogicHandler::DoBullets()
 {
-	Entity* b, * prev;
+	std::deque<Entity*>* bulletDeque = IGame::Instance()->GetWindowHandler()->GetBulletDeque();
 
-	prev = &m_stage->bulletHead;
-
-	for (b = m_stage->bulletHead.next; b != NULL; b = b->next)
+	size_t i = 1;
+	while (i <= bulletDeque->size() && !bulletDeque->empty())
 	{
-		b->x += b->dx;
-		b->y += b->dy;
+		Entity* tempEntity = bulletDeque->at(bulletDeque->size() - i);
+		tempEntity->x += tempEntity->dx;
+		tempEntity->y += tempEntity->dy;
 
-		if (b->x > SCREEN_WIDTH)
+		if (tempEntity->x > SCREEN_WIDTH)
 		{
-			if (b == m_stage->bulletTail)
-			{
-				m_stage->bulletTail = prev;
-			}
-
-			prev->next = b->next;
-
-			std::map<std::string, Entity*>::iterator it;
-			it = IGame::Instance()->GetWindowHandler()->GetEntityMap()->find(b->entityId);
-			if (it != IGame::Instance()->GetWindowHandler()->GetEntityMap()->end())
-			{
-				IGame::Instance()->GetWindowHandler()->GetEntityMap()->erase(it);
-			}
-			else
-			{
-				std::cout << "Couldn't find BULLET entity" << std::endl;
-			}
-			
-			delete b;
-			b = prev;
+			tempEntity = nullptr;
+			bulletDeque->pop_back();
 		}
-
-		prev = b;
+		i++;
 	}
 }
