@@ -5,6 +5,29 @@
 #include "DavEngine_Game/input.h"
 #include "SDL_image.h"
 
+static void capFrameRate(long* then, float* remainder)
+{
+	long wait, frameTime;
+
+	wait = 16 + (long)*remainder;
+
+	*remainder -= (int)*remainder;
+
+	frameTime = SDL_GetTicks() - *then;
+
+	wait -= frameTime;
+
+	if (wait < 1)
+	{
+		wait = 1;
+	}
+
+	SDL_Delay(wait);
+
+	*remainder += (int)0.667;
+
+	*then = SDL_GetTicks();
+}
 
 static void cleanup()
 {
@@ -13,25 +36,32 @@ static void cleanup()
 
 int main()
 {
+	long then;
+	float remainder;
+
     IGame::Instance()->Initialize();
-	input* inputObj = new input();
+	Input* inputObj = new Input(((DavEngine*)IGame::Instance())->GetApp());
 
 	atexit(cleanup);
 
+	then = SDL_GetTicks();
+
+	remainder = 0;
+
 	while (1)
 	{
-		IGame::Instance()->GetWindowHandler()->PrepareWindow(((DavEngine*)IGame::Instance())->GetApp());
+		IGame::Instance()->GetWindowHandler()->PrepareWindow();
 
-		inputObj->doInput();
+		inputObj->DoInput();
 
-		IGame::Instance()->GetWindowHandler()->blit(((DavEngine*)IGame::Instance())->GetTextureEntity(), ((DavEngine*)IGame::Instance())->GetApp());
+		IGame::Instance()->GetLogicHandler()->Logic();
 
-		IGame::Instance()->GetWindowHandler()->PresentWindow(((DavEngine*)IGame::Instance())->GetApp());
+		IGame::Instance()->GetWindowHandler()->Draw();
 
-		SDL_Delay(REFRESH_RATE);
+		IGame::Instance()->GetWindowHandler()->PresentWindow();
+
+		capFrameRate(&then, &remainder);
 	}
-
-	delete inputObj;
 
 	return 0;
 }

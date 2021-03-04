@@ -4,6 +4,7 @@
 #include "DavEngine_common/IGame.h"
 #include "DavEngine_defs.h"
 #include "WindowHandler.h"
+#include "LogicHandler.h"
 
 class DavEngine : public AbstractGame
 {
@@ -12,16 +13,17 @@ public:
 
 	void Initialize() override;
 	void InitSDLObject();
-	void InitTextureEntity();
+	void InitStage();
 
 	App* GetApp();
-	TextureEntity* GetTextureEntity();
 	WindowHandler* GetWindowHandler();
+	LogicHandler* GetLogicHandler();
 
 private:
 	App* m_app;
-	TextureEntity* m_player;
+	Stage* m_stage;
 	WindowHandler* m_windowHandler;
+	LogicHandler* m_logicHandler;
 
 	DavEngine(const DavEngine& a_toCopy);
 	DavEngine& operator = (const DavEngine& a_toAssign);

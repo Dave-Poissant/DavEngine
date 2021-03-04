@@ -5,6 +5,10 @@ IGame* IGame::m_game = new DavEngine();
 DavEngine::DavEngine() : AbstractGame()
 {
     std::cout << "- DavEngine::DavEngine() -" << std::endl;
+	m_app = nullptr;
+	m_stage = nullptr;
+	m_windowHandler = nullptr;
+	m_logicHandler = nullptr;
 }
 
 void DavEngine::Initialize()
@@ -15,13 +19,15 @@ void DavEngine::Initialize()
     m_app = new App();
 	memset(m_app, 0, sizeof(App));
 
-	m_player = new TextureEntity();
-	memset(m_player, 0, sizeof(TextureEntity));
+	m_stage = new Stage();
+	memset(m_stage, 0, sizeof(Stage));
 
-    m_windowHandler = new WindowHandler(SCREEN_WIDTH, SCREEN_HEIGHT);
+    m_windowHandler = new WindowHandler(SCREEN_WIDTH, SCREEN_HEIGHT, m_app, m_stage);
+	m_logicHandler = new LogicHandler(m_stage, m_app);
 
 	InitSDLObject();
-	InitTextureEntity();
+	InitStage();
+	m_windowHandler->InitializeTexture();
 }
 
 void DavEngine::InitSDLObject()
@@ -57,13 +63,10 @@ void DavEngine::InitSDLObject()
 	}
 }
 
-void DavEngine::InitTextureEntity()
+void DavEngine::InitStage()
 {
-	m_player->x = 100;
-	m_player->y = 100;
-	std::string currentPath = "C:\\Users\\davep\\Desktop\\DavEngine\\gfx";
-	std::string filename = currentPath + "\\player.png";
-	m_player->texture = m_windowHandler->loadTexture((char*)filename.c_str(), m_app);
+	m_stage->fighterTail = &m_stage->fighterHead;
+	m_stage->bulletTail = &m_stage->bulletHead;
 }
 
 App* DavEngine::GetApp()
@@ -71,14 +74,14 @@ App* DavEngine::GetApp()
     return m_app;
 }
 
-TextureEntity* DavEngine::GetTextureEntity()
-{
-	return m_player;
-}
-
 WindowHandler* DavEngine::GetWindowHandler()
 {
     return m_windowHandler;
+}
+
+LogicHandler* DavEngine::GetLogicHandler()
+{
+	return m_logicHandler;
 }
 
 DavEngine::~DavEngine()
@@ -88,12 +91,6 @@ DavEngine::~DavEngine()
         delete m_app;
         m_app = nullptr;
     }
-
-	if (m_player != nullptr)
-	{
-		delete m_player;
-		m_player = nullptr;
-	}
 
     if (m_windowHandler != nullptr)
     {

@@ -6,6 +6,7 @@
 #include "Game_defs.h"
 
 class WindowHandler;
+class LogicHandler;
 
 class IGame
 {
@@ -17,6 +18,7 @@ public:
 
 	virtual void Initialize() = 0;
 	virtual WindowHandler* GetWindowHandler() = 0;
+	virtual LogicHandler* GetLogicHandler() = 0;
 
 	virtual ~IGame() {};
 
@@ -35,6 +37,7 @@ class AbstractGame : public IGame
 public:
 	virtual void Initialize() override;
 	virtual WindowHandler* GetWindowHandler() override;
+	virtual LogicHandler* GetLogicHandler() override;
 
 	virtual ~AbstractGame() {};
 

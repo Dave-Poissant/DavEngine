@@ -14,3 +14,8 @@ WindowHandler* AbstractGame::GetWindowHandler()
 {
 	return nullptr;
 }
+
+LogicHandler* AbstractGame::GetLogicHandler()
+{
+	return nullptr;
+}
