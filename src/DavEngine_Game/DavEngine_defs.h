@@ -7,9 +7,11 @@
 #include "SDL_image.h"
 
 #define REFRESH_RATE 16 // Refresh rate of the screen in main while loop
+#define FPS 60
 
 #define PLAYER_SPEED          4
 #define PLAYER_BULLET_SPEED   16
+#define ALIEN_BULLET_SPEED    8
 
 #define MAX_KEYBOARD_KEYS 350
 

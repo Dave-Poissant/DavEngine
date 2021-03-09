@@ -22,28 +22,34 @@ public:
 	void PresentWindow();
 	void Draw();
 	void FireBullet();
+	void CreateEnemy();
 
 	std::deque<Entity*>* GetBulletDeque();
+	std::deque<Entity*>* GetEnemyDeque();
 	Entity* GetPlayerEntity();
+
+private:
+	void InitPlayer();
+	void InitEnemy();
+	void InitBullet();
+
+	void DrawPlayer();
+	void DrawFighters();
+	void DrawBullets();
 
 	void Blit(Entity* a_entity);
 	SDL_Texture* LoadTexture(char* a_filename);
 
-private:
-	void InitPlayer();
-	void InitBullet();
-
-	void DrawPlayer();
-	void DrawBullets();
-
 	App* m_app;
 	SDL_Texture* m_bulletTexture;
+	SDL_Texture* m_enemyTexture;
 	Entity* m_playerEntity;
 
 	int m_width;
 	int m_height;
 
 	std::deque<Entity*> m_bulletEntitysDeque;
+	std::deque<Entity*> m_ennemyEntitysDeque;
 };
 
 #endif // !_WINDOWHANDLER_H_
