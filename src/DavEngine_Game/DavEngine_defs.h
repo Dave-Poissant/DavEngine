@@ -11,9 +11,12 @@
 
 #define PLAYER_SPEED          4
 #define PLAYER_BULLET_SPEED   16
-#define ALIEN_BULLET_SPEED    8
+#define ALIEN_BULLET_SPEED    5
 
 #define MAX_KEYBOARD_KEYS 350
+
+#define SIDE_PLAYER 0
+#define SIDE_ALIEN  1
 
 struct App {
 	SDL_Renderer* renderer;
@@ -30,6 +33,7 @@ struct Entity {
 	float dy;
 	int health;
 	int reload;
+	int side;
 	SDL_Texture* texture;
 	Entity* next;
 };

@@ -11,12 +11,16 @@ public:
 	~LogicHandler();
 
 	void Logic();
+	int GetEnemySpawntimer();
+	void SetEnemySpawntimer(int a_time);
 
 private:
 	void DoPlayer();
 	void DoEnemies();
+	void DoEnemyBullet();
 	void DoBullets();
 	void SpawnEnemies();
+	void ClipPlayer();
 
 	App* m_app;
 
