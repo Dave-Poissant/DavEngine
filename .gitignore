@@ -19,7 +19,7 @@ SDL2/out/build/x64-Debug/
 
 *.log
 
-*.tlog
+**.tlog
 
 Debug/DavEngine.ilk
 
