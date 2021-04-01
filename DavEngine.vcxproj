@@ -72,8 +72,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir);$(ProjectDir)SDL2\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)SDL2\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)src;$(ProjectDir)SDL2\include;$(ProjectDir)SDL2\SDL2_image\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)SDL2\lib\x86;$(ProjectDir)SDL2\SDL2_image\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -94,7 +94,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -142,13 +142,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\DavEngine_common\common\utils\Math_utils.cpp" />
+    <ClCompile Include="src\DavEngine_Game\LogicHandler.cpp" />
+    <ClCompile Include="src\DavEngine_Game\input.cpp" />
     <ClCompile Include="src\DavEngine_common\AbstractGame.cpp" />
     <ClCompile Include="src\DavEngine_Game\DavEngine.cpp" />
     <ClCompile Include="src\tests\testing.cpp" />
+    <ClCompile Include="src\DavEngine_Game\WindowHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\DavEngine_common\common\utils\Math_utils.h" />
+    <ClInclude Include="src\DavEngine_Game\LogicHandler.h" />
+    <ClInclude Include="src\DavEngine_common\Game_defs.h" />
+    <ClInclude Include="src\DavEngine_Game\DavEngine_defs.h" />
+    <ClInclude Include="src\DavEngine_Game\input.h" />
     <ClInclude Include="src\DavEngine_common\IGame.h" />
     <ClInclude Include="src\DavEngine_Game\DavEngine.h" />
+    <ClInclude Include="src\DavEngine_Game\structs.h" />
+    <ClInclude Include="src\DavEngine_Game\WindowHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
