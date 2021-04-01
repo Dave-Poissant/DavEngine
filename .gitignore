@@ -38,3 +38,5 @@ Debug/DavEngine.exe.recipe
 x64/Debug/DavEngine.vcxproj.FileListAbsolute.txt
 
 *.idb
+
+Debug/DavEngine.tlog/
