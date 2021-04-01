@@ -1,9 +1,0 @@
-﻿  Math_utils.cpp
-  LogicHandler.cpp
-  input.cpp
-  AbstractGame.cpp
-  DavEngine.cpp
-  testing.cpp
-  WindowHandler.cpp
-  Generating Code...
-  DavEngine.vcxproj -> C:\Users\davep\Desktop\DavEngine\Debug\DavEngine.exe
