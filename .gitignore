@@ -24,3 +24,17 @@ SDL2/out/build/x64-Debug/
 Debug/DavEngine.ilk
 
 Debug/DavEngine.vcxproj.FileListAbsolute.txt
+
+Debug/DavEngine.exe
+
+*.pdb
+
+DavEngine.vcxproj.filters
+
+DavEngine.vcxproj.user
+
+Debug/DavEngine.exe.recipe
+
+x64/Debug/DavEngine.vcxproj.FileListAbsolute.txt
+
+*.idb
