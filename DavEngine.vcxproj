@@ -161,6 +161,9 @@
     <ClInclude Include="src\DavEngine_Game\structs.h" />
     <ClInclude Include="src\DavEngine_Game\WindowHandler.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitignore" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
