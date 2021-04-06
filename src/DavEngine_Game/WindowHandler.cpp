@@ -6,6 +6,11 @@
 #include "DavEngine_common/Game_defs.h"
 #include "DavEngine_common/common/utils/Math_utils.h"
 
+#include "boost\filesystem.hpp"
+
+boost::filesystem::path currentPath = boost::filesystem::current_path();
+std::string imagesPath = currentPath.string().substr(0, currentPath.string().find("Debug", 0)) + "gfx\\";
+
 WindowHandler::WindowHandler(int a_width, int a_height, App* a_app) : m_width(a_width), m_height(a_height), m_app(a_app)
 {
 	m_bulletTexture = nullptr;
@@ -105,8 +110,8 @@ void WindowHandler::InitPlayer()
 
 	player->x = 100;
 	player->y = 100;
-
-	std::string playerFilename = "C:\\Users\\davep\\Desktop\\DavEngine\\gfx\\player.png";
+	boost::filesystem::path currentWorkingDirectory = boost::filesystem::current_path();
+	std::string playerFilename = imagesPath + "player.png";
 	player->texture = LoadTexture((char*)playerFilename.c_str());
 	SDL_QueryTexture(player->texture, nullptr, nullptr, &player->w, &player->h);
 
@@ -115,19 +120,19 @@ void WindowHandler::InitPlayer()
 
 void WindowHandler::InitEnemy()
 {
-	std::string enemyFilename = "C:\\Users\\davep\\Desktop\\DavEngine\\gfx\\enemy.png";
+	std::string enemyFilename = imagesPath + "enemy.png";
 	m_enemyTexture = LoadTexture((char*)enemyFilename.c_str());
 }
 
 void WindowHandler::InitBullet()
 {
-	std::string bulletFilename = "C:\\Users\\davep\\Desktop\\DavEngine\\gfx\\playerBullet.png";
+	std::string bulletFilename = imagesPath + "playerBullet.png";
 	m_bulletTexture = LoadTexture((char*)bulletFilename.c_str());
 }
 
 void WindowHandler::InitEnemyBullet()
 {
-	std::string enemyBulletFilename = "C:\\Users\\davep\\Desktop\\DavEngine\\gfx\\alienBullet.png";
+	std::string enemyBulletFilename = imagesPath + "alienBullet.png";
 	m_enemyBulletTexture = LoadTexture((char*)enemyBulletFilename.c_str());
 }
 

@@ -27,6 +27,10 @@ Debug/DavEngine.vcxproj.FileListAbsolute.txt
 
 Debug/DavEngine.exe
 
+Debug/*
+
+Debug/DavEngine.tlog/*
+
 *.pdb
 
 DavEngine.vcxproj.filters
