@@ -1,17 +1,5 @@
 
-Debug/vc142.idb
-
-Debug/testing.obj
-
-Debug/vc142.pdb
-
-Debug/WindowHandler.obj
-
-SDL2/out/build/x64-Debug/.cmake/api/v1/query/client-MicrosoftVS/
-
-SDL2/out/build/x64-Debug/.cmake/api/v1/reply/
-
-SDL2/out/build/x64-Debug/
+SDL2/out/build/
 
 .vs/
 
@@ -21,15 +9,7 @@ SDL2/out/build/x64-Debug/
 
 **.tlog
 
-Debug/DavEngine.ilk
-
-Debug/DavEngine.vcxproj.FileListAbsolute.txt
-
-Debug/DavEngine.exe
-
-Debug/*
-
-Debug/DavEngine.tlog/*
+Debug/
 
 *.pdb
 
@@ -37,10 +17,6 @@ DavEngine.vcxproj.filters
 
 DavEngine.vcxproj.user
 
-Debug/DavEngine.exe.recipe
-
 x64/Debug/DavEngine.vcxproj.FileListAbsolute.txt
 
 *.idb
-
-Debug/DavEngine.tlog/
