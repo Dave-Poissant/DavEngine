@@ -2,7 +2,9 @@
 
 #define SDL_MAIN_HANDLED
 #include "DavEngine_Game/DavEngine.h"
-#include "DavEngine_Game/input.h"
+#include "DavEngine_Game/WindowHandler.h"
+#include "DavEngine_Game/LogicHandler.h"
+#include "DavEngine_Game/InputHandler.h"
 #include "SDL_image.h"
 
 static void capFrameRate(long* then, float* remainder)
@@ -40,7 +42,6 @@ int main()
 	float remainder;
 
     IGame::Instance()->Initialize();
-	Input* inputObj = new Input(((DavEngine*)IGame::Instance())->GetApp());
 
 	atexit(cleanup);
 
@@ -52,7 +53,7 @@ int main()
 	{
 		IGame::Instance()->GetWindowHandler()->PrepareWindow();
 
-		inputObj->DoInput();
+		IGame::Instance()->GetInputHandler()->DoInput();
 
 		IGame::Instance()->GetLogicHandler()->Logic();
 

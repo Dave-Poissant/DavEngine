@@ -19,3 +19,8 @@ LogicHandler* AbstractGame::GetLogicHandler()
 {
 	return nullptr;
 }
+
+InputHandler* AbstractGame::GetInputHandler()
+{
+	return nullptr;
+}

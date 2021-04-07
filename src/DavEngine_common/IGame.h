@@ -7,6 +7,7 @@
 
 class WindowHandler;
 class LogicHandler;
+class InputHandler;
 
 class IGame
 {
@@ -19,6 +20,7 @@ public:
 	virtual void Initialize() = 0;
 	virtual WindowHandler* GetWindowHandler() = 0;
 	virtual LogicHandler* GetLogicHandler() = 0;
+	virtual InputHandler* GetInputHandler() = 0;
 
 	virtual ~IGame() {};
 
@@ -38,6 +40,7 @@ public:
 	virtual void Initialize() override;
 	virtual WindowHandler* GetWindowHandler() override;
 	virtual LogicHandler* GetLogicHandler() override;
+	virtual InputHandler* GetInputHandler() override;
 
 	virtual ~AbstractGame() {};
 

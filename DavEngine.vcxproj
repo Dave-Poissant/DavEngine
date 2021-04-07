@@ -143,8 +143,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\DavEngine_common\common\utils\Math_utils.cpp" />
+    <ClCompile Include="src\DavEngine_Game\InputHandler.cpp" />
     <ClCompile Include="src\DavEngine_Game\LogicHandler.cpp" />
-    <ClCompile Include="src\DavEngine_Game\input.cpp" />
     <ClCompile Include="src\DavEngine_common\AbstractGame.cpp" />
     <ClCompile Include="src\DavEngine_Game\DavEngine.cpp" />
     <ClCompile Include="src\tests\testing.cpp" />
@@ -152,10 +152,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\DavEngine_common\common\utils\Math_utils.h" />
+    <ClInclude Include="src\DavEngine_Game\InputHandler.h" />
     <ClInclude Include="src\DavEngine_Game\LogicHandler.h" />
     <ClInclude Include="src\DavEngine_common\Game_defs.h" />
     <ClInclude Include="src\DavEngine_Game\DavEngine_defs.h" />
-    <ClInclude Include="src\DavEngine_Game\input.h" />
     <ClInclude Include="src\DavEngine_common\IGame.h" />
     <ClInclude Include="src\DavEngine_Game\DavEngine.h" />
     <ClInclude Include="src\DavEngine_Game\structs.h" />

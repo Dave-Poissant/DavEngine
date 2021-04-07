@@ -2,6 +2,7 @@
 #include <string>
 
 #include "LogicHandler.h"
+#include "WindowHandler.h"
 #include "DavEngine.h"
 
 LogicHandler::LogicHandler(App* a_app) : m_app(a_app)
