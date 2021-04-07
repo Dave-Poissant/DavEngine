@@ -4,11 +4,11 @@
 struct App;
 struct SDL_KeyboardEvent;
 
-class Input
+class InputHandler
 {
 public:
-	Input(App* a_app);
-	~Input();
+	InputHandler(App* a_app);
+	~InputHandler();
 
 	void DoInput();
 	

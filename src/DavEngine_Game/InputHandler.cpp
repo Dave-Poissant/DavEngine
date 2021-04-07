@@ -1,14 +1,14 @@
-#include "input.h"
+#include "InputHandler.h"
 #include "DavEngine_defs.h"
 
-Input::Input(App* a_app) : m_app(a_app)
+InputHandler::InputHandler(App* a_app) : m_app(a_app)
 {
 
 }
 
-Input::~Input() {}
+InputHandler::~InputHandler() {}
 
-void Input::DoInput()
+void InputHandler::DoInput()
 {
 	SDL_Event event;
 
@@ -33,7 +33,7 @@ void Input::DoInput()
 	}
 }
 
-void Input::DoKeyDown(SDL_KeyboardEvent* event)
+void InputHandler::DoKeyDown(SDL_KeyboardEvent* event)
 {
 	if (event->repeat == 0 && event->keysym.scancode < MAX_KEYBOARD_KEYS)
 	{
@@ -41,7 +41,7 @@ void Input::DoKeyDown(SDL_KeyboardEvent* event)
 	}
 }
 
-void Input::DoKeyUp(SDL_KeyboardEvent* event)
+void InputHandler::DoKeyUp(SDL_KeyboardEvent* event)
 {
 	if (event->repeat == 0 && event->keysym.scancode < MAX_KEYBOARD_KEYS)
 	{

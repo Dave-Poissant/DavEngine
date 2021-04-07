@@ -1,4 +1,7 @@
 #include "DavEngine.h"
+#include "WindowHandler.h"
+#include "LogicHandler.h"
+#include "InputHandler.h"
 
 IGame* IGame::m_game = new DavEngine();
 
@@ -8,6 +11,7 @@ DavEngine::DavEngine() : AbstractGame()
 	m_app = nullptr;
 	m_windowHandler = nullptr;
 	m_logicHandler = nullptr;
+	m_inputHandler = nullptr;
 }
 
 void DavEngine::Initialize()
@@ -23,6 +27,8 @@ void DavEngine::Initialize()
 
 	InitSDLObject();
 	m_windowHandler->InitializeTexture();
+
+	m_inputHandler = new InputHandler(m_app);
 }
 
 void DavEngine::InitSDLObject()
@@ -73,6 +79,11 @@ LogicHandler* DavEngine::GetLogicHandler()
 	return m_logicHandler;
 }
 
+InputHandler* DavEngine::GetInputHandler()
+{
+	return m_inputHandler;
+}
+
 DavEngine::~DavEngine()
 {
     if (m_app != nullptr)
@@ -86,4 +97,16 @@ DavEngine::~DavEngine()
         delete m_windowHandler;
         m_windowHandler = nullptr;
     }
+
+	if (m_logicHandler != nullptr)
+	{
+		delete m_logicHandler;
+		m_logicHandler = nullptr;
+	}
+
+	if (m_inputHandler != nullptr)
+	{
+		delete m_inputHandler;
+		m_inputHandler = nullptr;
+	}
 }

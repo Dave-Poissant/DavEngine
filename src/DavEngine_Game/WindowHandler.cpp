@@ -5,6 +5,7 @@
 #include "DavEngine_defs.h"
 #include "DavEngine_common/Game_defs.h"
 #include "DavEngine_common/common/utils/Math_utils.h"
+#include "LogicHandler.h"
 
 #include "boost\filesystem.hpp"
 
